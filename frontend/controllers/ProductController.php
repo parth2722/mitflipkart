@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Product;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
@@ -19,11 +20,25 @@ class ProductController extends Controller
 
     public function actionIndex()
     {
+
+        
         return $this->render('index');
     }
     public function actionShop()
     {
-        return $this->render('shop');
+       $model = Product::find()->all();
+        
+        return $this->render('shop',['model'=>$model]);
     }
 
+    public function actionDetails($id)
+    {
+        return $this->render('details',['id'=>$id]);
+    }
+
+    
+    
+
 }
+
+

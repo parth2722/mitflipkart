@@ -114,16 +114,4 @@ class SiteController extends Controller
         return $this->render('contact');
     }
  
-
-
-    /**
-     * Displays about page.
-     *
-     * @return mixed
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
-
 }

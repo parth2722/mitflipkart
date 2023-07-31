@@ -1,5 +1,5 @@
 <?php
-
+use yii\helpers\Url;
 ?>
 
 <header class="header_section">
@@ -14,35 +14,36 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav  ">
+          <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="/index.php">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/index.php/shop">
+              <a class="nav-link" href="/shop">
                 Shop
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/index.php/why">Why Us</a>
+         
+              <a class="nav-link" href="<?=Url::to('/why')?>">Why Us </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/index.php/testimonial">
+              <a class="nav-link" href="/testimonial">
                 Testimonial
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/index.php/contact">Contact Us</a>
+              <a class="nav-link" href="/contact">Contact Us</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/index.php/signup">signup</a>
+              <a class="nav-link" href="/signup">signup</a>
             </li>
           </ul>
           <div class="user_option">
             <a href="">
               <i class="fa fa-user" aria-hidden="true"></i>
               <span>
-              <a class="nav-link" href="/index.php/login">Login</a>
+              <a class="nav-link" href="/login">Login</a>
               </span>
             </a>
             <a href="">

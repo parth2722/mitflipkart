@@ -43,11 +43,13 @@ return [
             'rules' => [
                 "index" =>"product/index",
                 "shop" =>"product/shop",
+                "details" =>"product/details",
                 "why" =>"site/why",
                 "testimonial" =>"site/testimonial",
                 "contact" =>"site/contact",
                 "login" =>"site/login",
                 "signup" =>"site/signup"
+                
                
             ],
         ],

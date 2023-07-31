@@ -329,6 +329,7 @@ a:focus {
   position: relative;
   padding: 10px;
   margin-top: 25px;
+  width: 150%;
 }
 
 .shop_section .box a {
