@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Url;
+use yii\helpers\Html;
 ?>
 
 <header class="header_section">
@@ -35,6 +36,8 @@ use yii\helpers\Url;
             <li class="nav-item">
               <a class="nav-link" href="/contact">Contact Us</a>
             </li>
+
+       
             <li class="nav-item">
               <a class="nav-link" href="/signup">signup</a>
             </li>
@@ -46,6 +49,7 @@ use yii\helpers\Url;
               <a class="nav-link" href="/login">Login</a>
               </span>
             </a>
+
             <a href="">
               <i class="fa fa-shopping-bag" aria-hidden="true"></i>
             </a>
@@ -58,3 +62,8 @@ use yii\helpers\Url;
         </div>
       </nav>
     </header>
+
+
+
+          
+    

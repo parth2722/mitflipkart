@@ -17,7 +17,7 @@ class m230731_115112_product_seeder extends Migration
         $faker = Faker\Factory::create();
 
         // Clear existing data (optional)
-        $this->truncateTable($product);
+        // $this->truncateTable($product);
 
         // Insert multiple rows
         $rows = [];

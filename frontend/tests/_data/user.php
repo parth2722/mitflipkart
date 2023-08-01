@@ -26,7 +26,7 @@ return [
         //Test1234
         'password_hash' => '$2y$13$d17z0w/wKC4LFwtzBcmx6up4jErQuandJqhzKGKczfWuiEhLBtQBK',
         'email' => 'test@mail.com',
-        'status' => '9',
+        'status' => '10',
         'created_at' => '1548675330',
         'updated_at' => '1548675330',
         'verification_token' => '4ch0qbfhvWwkcuWqjN8SWRq72SOw1KYT_1548675330',
