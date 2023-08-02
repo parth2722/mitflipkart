@@ -24,9 +24,9 @@ class ProductController extends Controller
     }
     public function actionShop()
     {
-       $model = Product::find()->all();
-        
-        return $this->render('shop',['model'=>$model]);
+        $model = Product::find()->all();
+
+        return $this->render('shop', ['model' => $model]);
     }
 
     public function actionLogout()
@@ -35,10 +35,4 @@ class ProductController extends Controller
 
         return $this->goHome();
     }
-
-    
-    
-
 }
-
-

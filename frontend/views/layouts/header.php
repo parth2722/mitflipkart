@@ -52,7 +52,7 @@ use yii\helpers\Url;
             </a>
             <?php }else{
             
-              echo '<li class="-item active">'. 
+              echo '<li class="-nav-link">'. 
               Html::beginForm(['/site/logout']);
               echo Html::submitButton('Logout('.Yii::$app->user->identity->username.')');
               echo Html::endForm().'</li>';

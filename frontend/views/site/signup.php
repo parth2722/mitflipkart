@@ -16,20 +16,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>Please fill out the following fields to signup:</p>
 
-    <?=Html::img(Url::to('@web/images/a.png'),['class' =>'image-read'])?> 
+    <?= Html::img(Url::to('@web/images/a.png'), ['class' => 'image-read']) ?>
     <div class="row">
         <div class="col-lg-5">
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
             <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('full name') ?>
-               
-                <?= $form->field($model, 'email') ?>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
+            <?= $form->field($model, 'email') ?>
 
-                <div class="form-group">
-                    <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-                </div>
+            <?= $form->field($model, 'password')->passwordInput() ?>
+
+            <div class="form-group">
+                <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+            </div>
 
             <?php ActiveForm::end(); ?>
         </div>

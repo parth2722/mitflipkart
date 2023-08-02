@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\LoginForm;
 use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
+use frontend\models\Product;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -16,6 +17,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use frontend\models\Shop;
+use yii\web\NotFoundHttpException;
 
 /**
  * Site controller
@@ -113,10 +115,11 @@ class SiteController extends Controller
     }
     public function actionTestimonial()
     {
-        return $this->render('testimonial');
+        $model = Product::find()->all();
+        return $this->render('testimonial', ['model' => $model]);
     }
 
-        /**
+    /**
      * Logs out the current user.
      *
      * @return mixed
@@ -150,5 +153,45 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionCreate()   
+    {   
+          
+        $model = new Product();   
+   
+        // new record   
+        if($model->load(Yii::$app->request->post()) && $model->save()){   
+            return $this->redirect(['testimonial']);   
+        }   
+                   
+        return $this->render('create', ['model' => $model]);   
+    } 
+    public function actionUpdate($id)
+    {
+        $model = Product::find()->where(['id' => $id])->one();
 
+        // $id not found in database   
+        if ($model === null)
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        // update record   
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['testimonial']);
+        }
+
+        return $this->render('update', ['model' => $model]);
+    }
+
+    public function actionDelete($id)
+    {
+        $model = Product::findOne($id);
+
+        // $id not found in database   
+        if ($model === null)
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        // delete record   
+        $model->delete();
+
+        return $this->redirect(['testimonial']);
+    }
 }

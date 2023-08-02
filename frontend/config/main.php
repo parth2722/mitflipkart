@@ -48,7 +48,8 @@ return [
                 "testimonial" =>"site/testimonial",
                 "contact" =>"site/contact",
                 "login" =>"site/login",
-                "signup" =>"site/signup"
+                "signup" =>"site/signup",
+                "update" =>"site/update"
                 
                
             ],
