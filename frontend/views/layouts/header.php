@@ -1,6 +1,7 @@
 <?php
-use yii\helpers\Url;
 use yii\helpers\Html;
+use yii\helpers\Url;
+
 ?>
 
 <header class="header_section">
@@ -37,18 +38,26 @@ use yii\helpers\Html;
               <a class="nav-link" href="/contact">Contact Us</a>
             </li>
 
-       
+            <?php if(Yii::$app->user->isGuest) { ?>
             <li class="nav-item">
-              <a class="nav-link" href="/signup">signup</a>
+            <a class="nav-link" href="<?=Url::to(['/login']) ?>">Login</a>
             </li>
           </ul>
           <div class="user_option">
             <a href="">
               <i class="fa fa-user" aria-hidden="true"></i>
               <span>
-              <a class="nav-link" href="/login">Login</a>
+              <a class="nav-link" href="<?=Url::to(['/signup']) ?>">Signup</a>
               </span>
             </a>
+            <?php }else{
+            
+              echo '<li class="-item active">'. 
+              Html::beginForm(['/site/logout']);
+              echo Html::submitButton('Logout('.Yii::$app->user->identity->username.')');
+              echo Html::endForm().'</li>';
+
+            }?>
 
             <a href="">
               <i class="fa fa-shopping-bag" aria-hidden="true"></i>
@@ -67,3 +76,5 @@ use yii\helpers\Html;
 
           
     
+
+

@@ -20,8 +20,6 @@ class ProductController extends Controller
 
     public function actionIndex()
     {
-
-        
         return $this->render('index');
     }
     public function actionShop()
@@ -31,9 +29,11 @@ class ProductController extends Controller
         return $this->render('shop',['model'=>$model]);
     }
 
-    public function actionDetails($id)
+    public function actionLogout()
     {
-        return $this->render('details',['id'=>$id]);
+        Yii::$app->user->logout();
+
+        return $this->goHome();
     }
 
     

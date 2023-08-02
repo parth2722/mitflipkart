@@ -35,18 +35,4 @@ class m230731_074103_advance extends Migration
         $this->dropTable('{{%product}}');
     }
 
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m230731_074103_advance cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }

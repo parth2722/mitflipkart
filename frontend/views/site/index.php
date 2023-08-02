@@ -8,6 +8,7 @@ $this->title = 'site index';
 
 
     <section class="slider_section">
+    <div class="container">
       <div class="slider_container">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
@@ -100,6 +101,7 @@ $this->title = 'site index';
           </div>
         </div>
       </div>
+</div>
     </section>
 
     <!-- end slider section -->
