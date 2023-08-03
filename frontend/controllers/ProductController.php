@@ -17,6 +17,22 @@ use frontend\models\Shop;
 class ProductController extends Controller
 {
 
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['shop'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@']
+                    ],
+                ],
+            ],
+        ];
+    }
+
 
     public function actionIndex()
     {

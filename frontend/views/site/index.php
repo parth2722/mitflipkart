@@ -3,7 +3,7 @@
 /** @var yii\web\View $this */
 
 $this->title = 'My Yii Application';
-$this->title = 'site index';
+$this->title = 'home';
 ?>
 
 

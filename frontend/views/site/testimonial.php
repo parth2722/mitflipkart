@@ -1,13 +1,13 @@
 <?php
-
+/** @var yii\web\View $this */
 use yii\helpers\Url;
-// $this->title = 'site testimonial';
+$this->title = 'testimonial';
 ?>
 
 <section class="client_section layout_padding">
   <div class="container">
 
-  </div>
+  
   <a href="<?= Url::to(['create']) ?>" class="btn btn-success push-right">Create </a>
   <table class="table table-striped table-bordered">
     <tr>
@@ -112,5 +112,6 @@ use yii\helpers\Url;
         </a>
       </div>
     </div>
+  </div>
   </div>
 </section>

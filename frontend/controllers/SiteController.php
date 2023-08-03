@@ -153,18 +153,18 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-    public function actionCreate()   
-    {   
-          
-        $model = new Product();   
-   
+    public function actionCreate()
+    {
+
+        $model = new Product();
+
         // new record   
-        if($model->load(Yii::$app->request->post()) && $model->save()){   
-            return $this->redirect(['testimonial']);   
-        }   
-                   
-        return $this->render('create', ['model' => $model]);   
-    } 
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['testimonial']);
+        }
+
+        return $this->render('create', ['model' => $model]);
+    }
     public function actionUpdate($id)
     {
         $model = Product::find()->where(['id' => $id])->one();

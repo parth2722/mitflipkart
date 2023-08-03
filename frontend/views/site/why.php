@@ -1,5 +1,6 @@
 <?php
-
+/** @var yii\web\View $this */
+$this->title = 'why';
 ?>
 
 <section class="why_section layout_padding">
