@@ -14,7 +14,7 @@ use yii\helpers\Html;
                     <li class="nav-item"><a class="nav-link active" href="/index.php?r=site%2Findex">Home</a></li>
                 </ul>
                 <form class="d-flex" action="/index.php?r=site%2Flogout" method="post">
-                    <input type="hidden" name="_csrf-backend" value="Fd8bJ_pux0ncKHpgvMqCrMMNtOSkneAQpAzMxANTiJRgvilzuyaNEZtjMFmNiMaYhFmNqtLuj2LoRfmWNSDb3A=="><button type="submit" class="btn btn-link logout text-decoration-none">Logout (parth)</button>
+                    <input type="hidden" name="_csrf-backend" value="Fd8bJ_pux0ncKHpgvMqCrMMNtOSkneAQpAzMxANTiJRgvilzuyaNEZtjMFmNiMaYhFmNqtLuj2LoRfmWNSDb3A=="><button type="submit" class="btn btn-link logout text-decoration-none">Logout</button>
                 </form>
             </div>
         </div>

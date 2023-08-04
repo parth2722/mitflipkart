@@ -55,9 +55,14 @@ use yii\helpers\Url;
 
           echo '<li class="user_logout">' .
             Html::beginForm(['/site/logout']);
-          echo Html::submitButton('Logout(' . Yii::$app->user->identity->username . ')');
+          echo  Html::submitButton(
+            'Logout (' . Yii::$app->user->identity->username . ')',
+            ['class' => 'btn btn-link logout text-decoration-none']
+          );
           echo Html::endForm() . '</li>';
         } ?>
+
+
 
       <a href="">
         <i class="fa fa-shopping-bag" aria-hidden="true"></i>
@@ -67,6 +72,7 @@ use yii\helpers\Url;
           <i class="fa fa-search" aria-hidden="true"></i>
         </button>
       </form>
+ 
       </div>
     </div>
   </nav>
