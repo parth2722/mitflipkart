@@ -24,6 +24,9 @@ class Yii {
  * 
  */
 class __Application {
+    
+
+    
 }
 
 /**

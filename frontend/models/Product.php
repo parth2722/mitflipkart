@@ -15,6 +15,31 @@ use Yii;
  */
 class Product extends \yii\db\ActiveRecord
 {
+    const STATUS_DELETED = 1;
+    const STATUS_ACTIVE = 0;
+
+    public static function find()
+    {
+        return parent::find()->where(['is_deleted' => self::STATUS_ACTIVE]);
+    }
+
+    public function beforeDelete()
+    {
+        if (parent::beforeDelete()) {
+            $this->is_deleted = self::STATUS_DELETED;
+            $this->save(false); // Avoid validation as we're not changing other attributes
+            return false;
+        } else {
+            return false;
+        }
+    }
+
+    public function restore()
+    {
+        $this->is_deleted = self::STATUS_ACTIVE;
+        return $this->save(false);
+    }
+
     /**
      * {@inheritdoc}
      */

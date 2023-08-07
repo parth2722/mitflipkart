@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use frontend\models\Product;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\behaviors\TimestampBehavior;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -21,6 +22,7 @@ class ProductController extends Controller
     {
         return [
             'access' => [
+          
                 'class' => AccessControl::className(),
                 'only' => ['shop'],
                 'rules' => [
@@ -41,6 +43,7 @@ class ProductController extends Controller
     public function actionShop()
     {
         $model = Product::find()->all();
+        
 
         return $this->render('shop', ['model' => $model]);
     }

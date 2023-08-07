@@ -37,6 +37,11 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        // 'authManager' => [
+        //     'class' => 'yii\rbac\DbManager',
+        //     'itemFile' => '@app/config/rbac.php',
+        // ],
+      
         // /*
         // 'urlManager' => [
         //     'enablePrettyUrl' => true,

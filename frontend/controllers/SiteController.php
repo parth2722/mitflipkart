@@ -12,6 +12,7 @@ use frontend\models\SignupForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\behaviors\TimestampBehavior;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -28,6 +29,7 @@ class SiteController extends Controller
     {
         return [
             'access' => [
+                // TimestampBehavior::className(),
                 'class' => AccessControl::class,
                 'only' => ['logout', 'signup'],
                 'rules' => [
