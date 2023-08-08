@@ -45,7 +45,7 @@ class SiteController extends Controller
                     [
                         'actions' => ['product', 'update', 'delete', 'create', 'restore'],
                         'allow' => true,
-                        'roles' => ['admin'],
+                        'roles' => ['@'],
                     ],
                 ],
             ],
@@ -95,7 +95,7 @@ class SiteController extends Controller
         $this->layout = 'blank';
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post()) && $model->loginAdmin()) {
             return $this->goBack();
         }
 
@@ -105,12 +105,6 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-
-    /**
-     * Logout action.
-     *
-     * @return Response
-     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
@@ -167,20 +161,5 @@ class SiteController extends Controller
         return $this->redirect(['product']);
     }
 
-    public function actionRestore($id)
-    {
-        $model = Product::find()->where(['id' => $id])->one();
-
-       if ($model === null){
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-
-        if ($model->restore()) {
-            Yii::$app->session->setFlash('success', 'Record restored successfully.');
-        } else {
-            Yii::$app->session->setFlash('error', 'Unable to restore the record.');
-        }
-
-        return $this->redirect(['product']); // Redirect to the appropriate action
-    }
+  
 }

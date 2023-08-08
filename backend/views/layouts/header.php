@@ -29,9 +29,6 @@ use yii\helpers\Html;
                             . Html::endForm();
                     }
                 } ?>
-
-
-                   
                     </form>
             </div>
         </div>

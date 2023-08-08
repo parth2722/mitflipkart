@@ -30,6 +30,8 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_ACTIVE = 10;
 
 
+    const ROLE_USER = 2;
+    const ROLE_ADMIN = 1;
 
     /**
      * {@inheritdoc}
@@ -55,10 +57,22 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_INACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            ['role', 'default', 'value' => 1],
+            ['role', 'in', 'range' => [self::ROLE_USER, self::ROLE_ADMIN]],
+
         ];
     }
+    public static function isUserAdmin($username)
+    {
+        if (static::findOne(['username' => $username, 'role_id' => self::ROLE_ADMIN])) {
+
+            return true;
+        } else {
+
+            return false;
+        }
+    }
+
 
     /**
      * {@inheritdoc}
@@ -111,7 +125,8 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $token verify email token
      * @return static|null
      */
-    public static function findByVerificationToken($token) {
+    public static function findByVerificationToken($token)
+    {
         return static::findOne([
             'verification_token' => $token,
             'status' => self::STATUS_INACTIVE

@@ -22,7 +22,7 @@ class ProductController extends Controller
     {
         return [
             'access' => [
-          
+
                 'class' => AccessControl::className(),
                 'only' => ['shop'],
                 'rules' => [
@@ -43,8 +43,6 @@ class ProductController extends Controller
     public function actionShop()
     {
         $model = Product::find()->all();
-        
-
         return $this->render('shop', ['model' => $model]);
     }
 

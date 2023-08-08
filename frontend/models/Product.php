@@ -34,11 +34,6 @@ class Product extends \yii\db\ActiveRecord
         }
     }
 
-    public function restore()
-    {
-        $this->is_deleted = self::STATUS_ACTIVE;
-        return $this->save(false);
-    }
 
     /**
      * {@inheritdoc}

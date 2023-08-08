@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\LoginForm;
+use common\models\User;
 use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\Product;
@@ -27,31 +28,38 @@ class SiteController extends Controller
 {
     public function behaviors()
     {
-        return [
-            'access' => [
-                // TimestampBehavior::className(),
-                'class' => AccessControl::class,
-                'only' => ['logout', 'signup'],
-                'rules' => [
-                    [
-                        'actions' => ['signup'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
+       return [
+           'access' => [
+               'class' => AccessControl::className(),
+               'only' => ['logout', 'signup', 'about'],
+               'rules' => [
+                   [
+                       'actions' => ['signup'],
+                       'allow' => true,
+                       'roles' => ['?'],
+                   ],
+                   [
+                       'actions' => ['logout'],
+                       'allow' => true,
+                       'roles' => ['@'],
+                   ],
+                   [
+                       'actions' => ['about'],
+                       'allow' => true,
+                       'roles' => ['@'],
+                       'matchCallback' => function ($rule, $action) {
+                           return User::isUserAdmin(Yii::$app->user->identity->username);
+                       }
+                   ],
+               ],
+           ],
+           'verbs' => [
+               'class' => VerbFilter::className(),
+               'actions' => [
+                   'logout' => ['post'],
+               ],
+           ],
+       ];
     }
     public function actions()
     {
