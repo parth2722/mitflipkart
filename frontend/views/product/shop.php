@@ -2,6 +2,8 @@
 
 /** @var yii\web\View $this */
 
+use app\components\FirstWidget;
+use yii\grid\GridView;
 use yii\helpers\Html;
 
 $this->title = 'shop';
@@ -16,10 +18,17 @@ $this->params['breadcrumbs'][] = $this->title;
       </h2>
     </div>
     <div class="row">
+    
+
       <?php foreach ($model as $product) : ?>
+
         <!-- Render the item_view.php for each item -->
         <?= $this->render('product', ['product' => $product]) ?>
       <?php endforeach; ?>
+
+
+     
+
     </div>
   </div>
   <div class="btn-box">

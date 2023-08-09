@@ -12,6 +12,7 @@ use Yii;
  * @property string $slug
  * @property float $price
  * @property string|null $sku
+ *  
  */
 class Product extends \yii\db\ActiveRecord
 {
@@ -69,6 +70,7 @@ class Product extends \yii\db\ActiveRecord
             'slug' => 'Slug',
             'price' => 'Price',
             'sku' => 'Sku',
+            
         ];
     }
 }

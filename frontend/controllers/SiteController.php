@@ -28,38 +28,35 @@ class SiteController extends Controller
 {
     public function behaviors()
     {
-       return [
-           'access' => [
-               'class' => AccessControl::className(),
-               'only' => ['logout', 'signup', 'about'],
-               'rules' => [
-                   [
-                       'actions' => ['signup'],
-                       'allow' => true,
-                       'roles' => ['?'],
-                   ],
-                   [
-                       'actions' => ['logout'],
-                       'allow' => true,
-                       'roles' => ['@'],
-                   ],
-                   [
-                       'actions' => ['about'],
-                       'allow' => true,
-                       'roles' => ['@'],
-                       'matchCallback' => function ($rule, $action) {
-                           return User::isUserAdmin(Yii::$app->user->identity->username);
-                       }
-                   ],
-               ],
-           ],
-           'verbs' => [
-               'class' => VerbFilter::className(),
-               'actions' => [
-                   'logout' => ['post'],
-               ],
-           ],
-       ];
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout', 'signup', 'about'],
+                'rules' => [
+                    [
+                        'actions' => ['signup'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['about'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
     }
     public function actions()
     {
@@ -114,6 +111,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+        
     }
     public function actionShop()
     {
@@ -204,4 +202,15 @@ class SiteController extends Controller
 
         return $this->redirect(['testimonial']);
     }
+
+    public function actionPjax()
+    {
+        $message = Yii::$app->request->post('message');
+        $response = null;
+        if(!is_null($message)){
+            $response = 'Your message is: '.$message;
+        }
+        return $this->render('pjax',['response'=>$response]);
+    }
+
 }

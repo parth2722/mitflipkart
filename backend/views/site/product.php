@@ -28,6 +28,8 @@ $this->title = 'product';
       </tr>
       <?php
 
+
+
       foreach ($model as $product) { ?>
         <tr>
 

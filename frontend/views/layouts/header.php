@@ -30,6 +30,11 @@ use yii\helpers\Url;
 
           <a class="nav-link" href="<?= Url::to('/why') ?>">Why Us </a>
         </li>
+
+        <li class="nav-item">
+
+          <a class="nav-link" href="<?= Url::to('/pjax') ?>">Pjax </a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="/testimonial">
             Testimonial
@@ -72,7 +77,7 @@ use yii\helpers\Url;
           <i class="fa fa-search" aria-hidden="true"></i>
         </button>
       </form>
- 
+
       </div>
     </div>
   </nav>
