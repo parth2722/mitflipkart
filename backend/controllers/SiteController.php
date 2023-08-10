@@ -115,7 +115,6 @@ class SiteController extends Controller
     {
         // $model = Product::find()->ignoreSoftDelete()->all();
         $model = Product::find()->all();
-
         return $this->render('product', ['model' => $model]);
     }
 
