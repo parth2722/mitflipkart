@@ -14,6 +14,11 @@ class SignupCest
         $I->amOnRoute('site/signup');
     }
 
+    public function run()
+    {
+        return 'Hello, this is the HelloWidget!';
+    }
+
     public function signupWithEmptyFields(FunctionalTester $I)
     {
         $I->see('Signup', 'h1');

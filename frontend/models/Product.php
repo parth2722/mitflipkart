@@ -19,6 +19,8 @@ class Product extends \yii\db\ActiveRecord
     const STATUS_DELETED = 1;
     const STATUS_ACTIVE = 0;
 
+    public $image;
+
     public static function find()
     {
         return parent::find()->where(['is_deleted' => self::STATUS_ACTIVE]);
@@ -56,6 +58,7 @@ class Product extends \yii\db\ActiveRecord
             [['slug'], 'string', 'max' => 32],
             [['sku'], 'string', 'max' => 255],
             [['sku'], 'unique'],
+            // [['image'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
         ];
     }
 
@@ -70,7 +73,21 @@ class Product extends \yii\db\ActiveRecord
             'slug' => 'Slug',
             'price' => 'Price',
             'sku' => 'Sku',
+            'image' => 'Image',
             
         ];
+    }
+       public function upload()
+    {
+        if ($this->validate()) {
+            $fileName = 'your_unique_prefix_' . time() . '.' . $this->imageFile->extension;
+            $this->imageFile->saveAs('/home/parth/Downloads' . $fileName);
+            
+            // Save the file name to the database
+            $this->image = $fileName;
+            return $this->save(false);
+        } else {
+            return false;
+        }
     }
 }

@@ -14,6 +14,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use frontend\models\Shop;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 /**
  * Pite controller
@@ -41,21 +42,45 @@ class ProductController extends Controller
 
     public function actionIndex()
     {
-        
+
         return $this->render('index');
     }
     public function actionShop()
     {
-
-        $model = Product::find()->all();
-        return $this->render('product', ['model' => $model]);
+        $query = Product::find(); // Replace with your product query
+        $pagination = new Pagination([
+            'totalCount' => $query->count(),
+            'pageSize' => 10, // Adjust the page size as needed
+        ]);
+    
+        $model = $query->offset($pagination->offset)
+                       ->limit($pagination->limit)
+                       ->all();
+    
+        return $this->render('shop', [
+            'model' => $model,
+            'pagination' => $pagination,
+        ]);
     }
+    
 
     public function actionLogout()
     {
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+    public function actionCreate()
+    {
+
+        $model = new Product();
+
+        // new record   
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['shop']);
+        }
+
+        return $this->render('create', ['model' => $model]);
     }
     public function actionUpdate($id)
     {
@@ -67,9 +92,24 @@ class ProductController extends Controller
 
         // update record   
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['testimonial']);
+            return $this->redirect(['shop']);
         }
 
         return $this->render('update', ['model' => $model]);
     }
+
+    public function actionDelete($id)
+    {
+        $model = Product::findOne($id);
+
+        // $id not found in database   
+        if ($model === null)
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        // delete record   
+        $model->delete();
+
+        return $this->redirect(['shop']);
+    }
+
 }

@@ -8,9 +8,11 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
+use yii\web\UploadedFile;
 
 /**
  * Site controller
@@ -43,7 +45,7 @@ class SiteController extends Controller
                     ],
 
                     [
-                        'actions' => ['product', 'update', 'delete', 'create', 'restore'],
+                        'actions' => ['product', 'update', 'delete', 'create', 'restore', 'view',],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -87,7 +89,7 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -95,6 +97,7 @@ class SiteController extends Controller
         $this->layout = 'blank';
 
         $model = new LoginForm();
+        $showHelloWidget = false;
         if ($model->load(Yii::$app->request->post()) && $model->loginAdmin()) {
             return $this->goBack();
         }
@@ -103,6 +106,7 @@ class SiteController extends Controller
 
         return $this->render('login', [
             'model' => $model,
+            'showHelloWidget' => $showHelloWidget,
         ]);
     }
     public function actionLogout()
@@ -118,47 +122,115 @@ class SiteController extends Controller
         return $this->render('product', ['model' => $model]);
     }
 
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new User model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return string|\yii\web\Response
+     */
     public function actionCreate()
     {
-
         $model = new Product();
 
-        // new record   
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['product']);
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        } else {
+            $model->loadDefaultValues();
         }
 
-        return $this->render('create', ['model' => $model]);
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
+
+    /**
+     * Updates an existing User model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param int $id ID
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionUpdate($id)
     {
-        $model = Product::find()->where(['id' => $id])->one();
+        $model = $this->findModel($id);
 
-        // $id not found in database   
-        if ($model === null)
-            throw new NotFoundHttpException('The requested page does not exist.');
-
-        // update record   
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['product']);
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        return $this->render('update', ['model' => $model]);
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
+    /**
+     * Deletes an existing User model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param int $id ID
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionDelete($id)
     {
-        $model = Product::findOne($id);
+        $this->findModel($id)->delete();
 
-        // $id not found in database   
-        if ($model === null)
-            throw new NotFoundHttpException('The requested page does not exist.');
-
-        // delete record   
-        $model->delete();
-
-        return $this->redirect(['product']);
+        return $this->redirect(['index']);
     }
 
-  
+    /**
+     * Finds the User model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param int $id ID
+     * @return Product the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Product::findOne(['id' => $id])) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionUpload()
+    {
+        $model = new Product();
+
+        if (Yii::$app->request->isPost) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if ($model->upload()) {
+                // File uploaded successfully
+            }
+        }
+
+        return $this->render('upload', ['model' => $model]);
+    }
+    public function actionCreateAjax()
+    {
+        $model = new Product();
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if ($model->upload()) {
+                if ($model->save()) {
+                    return Json::encode(['success' => true, 'message' => 'Product created successfully.']);
+                } else {
+                    return Json::encode(['success' => false, 'message' => 'Failed to save product.']);
+                }
+            } else {
+                return Json::encode(['success' => false, 'message' => 'Failed to upload image.']);
+            }
+        }
+
+        return $this->renderAjax('_form', ['model' => $model]);
+    }
 }

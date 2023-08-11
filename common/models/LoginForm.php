@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+
 use Yii;
 use yii\base\Model;
 
@@ -41,14 +42,18 @@ class LoginForm extends Model
      */
     public function validatePassword($attribute, $params)
     {
-
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                // $this->addError($attribute, 'Incorrect username or password.');
+
+                $helloWidgetContent = \app\components\HelloWidget::widget();
+
+                $this->addError($attribute, '' . $helloWidgetContent);
             }
         }
     }
+
     public function loginAdmin()
     {
         if ($this->validate() && User::isUserAdmin($this->username)) {

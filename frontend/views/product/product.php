@@ -1,57 +1,29 @@
 <?php
-
-use app\components\FirstWidget;
-use yii\data\ArrayDataProvider;
-use yii\grid\GridView;
-
- 
-$dataProvider = new ArrayDataProvider([
-  'allModels' => $model,
-]);
-
+use yii\helpers\Url;
 ?>
-<div class="container">
-  <?= GridView::widget([
-    'dataProvider' => $dataProvider,
-    'columns' => [
-      'id',
-      'product_name',
-      'price',
-      'slug',
-      'sku',
-     
-         ['class'=>'yii\grid\ActionColumn']
-    ],
-    
- 
-  ]) ?>
 
-<!-- <div class="container">
 <div class="row">
-  <div class="col-sm-6 col-md-4 col-lg-3">
-    <div class="box">
-      <a href="">
-        <div class="img-box">
-          <img src="/images/q.png" alt="">
+    <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="box">
+            <a href="">
+                <div class="img-box">
+                    <img src="/images/q.png" alt="">
+                </div>
+                <div class="detail-box">
+                    <h3><?= $product->id ?></h3>
+                    <h6><?= $product->product_name ?></h6>
+                    <h6><?= $product->price ?></h6>
+                    <h6><?= $product->slug ?></h6>
+                    <h6><?= $product->sku ?></h6>
+                    <h6><?= $product->sku ?></h6>
+                </div>
+                <div class="new">
+                    <span>New</span>
+                </div>
+            </a>
         </div>
-        <div class="detail-box">
-
-          </h6>
-        </div>
-        <div class="new">
-          <span>
-            New
-          </span>
-        </div>
-      </a>
     </div>
-  </div>
 
-</div>
-</div> -->
+    <!-- Repeat the above code block for each product, adjusting the col-* classes as needed -->
 
-
-<?php FirstWidget::begin(); ?>
-      First Widget 
-<?php FirstWidget::end(); ?>  
 </div>

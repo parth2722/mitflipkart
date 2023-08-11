@@ -1,52 +1,51 @@
 <?php
 
-/** @var yii\web\View $this */
-
+use frontend\models\Product;
+use yii\data\ArrayDataProvider;
+use yii\grid\ActionColumn;
+use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
+use yii\widgets\LinkPager;
 
-$this->title = 'product';
+$dataProvider = new ArrayDataProvider([
+    'allModels' => $model,
+]);
+
 ?>
-<br>
-<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <?= Html::a('Create Product', ['create'], ['class' => 'btn btn-success']) ?>
 
-<br>
-<section class="client_section layout_padding">
-  <div class="container">
+            <?php Pjax::begin(['id' => 'products-pjax']); ?>
 
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'columns' => [
+                    'id',
+                    'product_name',
+                    'price',
+                    'slug',
+                    'sku',
+                    [
+                        'class' => ActionColumn::className(),
+                        'urlCreator' => function ($action, Product $model, $key, $index, $column) {
+                            return Url::toRoute([$action, 'id' => $model->id]);
+                        }
+                    ],
+                ],
+                // Add the pager option
+                'pager' => [
+                    'class' => LinkPager::class,
+                ],
 
-    <a href="<?= Url::to(['create']) ?>" class="btn btn-success push-right">Create </a>
-    <a href="<?= Url::to(['restore']) ?>" class="btn btn-success push-right">Restore </a>
-    <table class="table table-striped table-bordered">
-      <tr>
+                
+            ]) ?>
 
-        <th>ID</th>
-        <th>product_name</th>
-        <th>price</th>
-        <th>slug</th>
-        <th>sku</th>
-        <th>operation</th>
-      </tr>
-      <?php
+            <?php Pjax::end(); ?>
 
-
-
-      foreach ($model as $product) { ?>
-        <tr>
-
-          <td><?= $product->id ?></td>
-          <td> <?= $product->product_name ?></td>
-          <td> <?= $product->price ?></td>
-          <td> <?= $product->slug ?></td>
-          <td> <?= $product->sku ?></td>
-          <td>
-            <a style="color: blue;" href="<?= Url::to(['update', 'id' => $product->id]) ?>">Update</a>
-            <a style="color: red;" href="<?= Url::to(['delete', 'id' => $product->id]) ?>">Delete</a>
-          </td>
-        </tr>
-      <?php
-
-      } ?>
-    </table>
-
-  </div>
-</section>
+        </div>
+    </div>
+</div>

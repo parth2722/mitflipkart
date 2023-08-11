@@ -49,8 +49,9 @@ return [
                 "contact" =>"site/contact",
                 "login" =>"site/login",
                 "signup" =>"site/signup",
-                "update" =>"site/update",
-                "pjax" =>"site/pjax"
+                "update" =>"product/update",
+                "pjax" =>"site/pjax",
+                "create" =>"site/create",
                 
                
             ],
